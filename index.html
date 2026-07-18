@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechDream Africa — Transform Your Ideas into Powerful Digital Solutions</title>
+<meta name="description" content="TechDream Africa builds web, mobile, AI, ERP and CRM solutions for ambitious businesses across Africa and beyond.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          primary: { DEFAULT: '#0F766E', 50:'#EBF7F5',100:'#D2EEE9',600:'#0F766E',700:'#0B5C56',800:'#083F3B' },
+          secondary: '#1E293B',
+          accent: { DEFAULT: '#2563EB', 50:'#EFF4FF' },
+          success: '#10B981', warning: '#F59E0B', danger: '#EF4444',
+        },
+        fontFamily: { display: ['Sora','sans-serif'], body: ['Inter','sans-serif'] },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="font-body bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 antialiased">
+
+<!-- ============================== NAVBAR ============================== -->
+<header class="sticky top-0 z-50 glass border-b border-slate-100/50 dark:border-slate-800/50">
+  <nav class="max-w-7xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2 font-display font-bold text-lg text-secondary dark:text-white">
+      <span class="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent flex items-center justify-center text-white text-sm">TD</span>
+      TechDream <span class="text-primary-600">Africa</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#about" class="hover:text-primary-600 transition-colors">About</a>
+      <a href="#services" class="hover:text-primary-600 transition-colors">Services</a>
+      <a href="#portfolio" class="hover:text-primary-600 transition-colors">Portfolio</a>
+      <a href="#testimonials" class="hover:text-primary-600 transition-colors">Testimonials</a>
+      <a href="#faq" class="hover:text-primary-600 transition-colors">FAQ</a>
+      <a href="#contact" class="hover:text-primary-600 transition-colors">Contact</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle" aria-label="Toggle dark mode" class="h-9 w-9 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">🌓</button>
+      <a href="login.html" class="hidden sm:inline-block text-sm font-medium px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Login</a>
+      <a href="new-project.html" class="text-sm font-medium px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 shadow-sm shadow-primary-600/30 transition-colors">Request a Project</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section class="relative overflow-hidden hero-mesh">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32 grid lg:grid-cols-2 gap-12 items-center">
+    <div data-aos="fade-up">
+      <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-700 bg-primary-50 dark:bg-primary-800/30 dark:text-primary-100 px-3 py-1 rounded-full">
+        <span class="h-1.5 w-1.5 rounded-full bg-primary-600 animate-pulse-dot"></span> Trusted by teams across Africa
+      </span>
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] mt-5 text-secondary dark:text-white">
+        Transform Your Ideas into <span class="bg-gradient-to-r from-primary-600 to-accent bg-clip-text text-transparent">Powerful Digital Solutions</span>
+      </h1>
+      <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl">
+        TechDream Africa designs and builds web platforms, mobile apps, AI tools, and enterprise systems — from first requirement to production deployment, tracked every step of the way.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="new-project.html" class="px-6 py-3 rounded-xl bg-primary-600 text-white font-semibold hover:bg-primary-700 shadow-lg shadow-primary-600/25 transition-all hover:-translate-y-0.5">Request a Project</a>
+        <a href="login.html" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Login</a>
+        <a href="login.html?track=1" class="px-6 py-3 rounded-xl font-semibold text-accent hover:bg-accent-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">Track My Project →</a>
+      </div>
+      <div class="mt-10 flex items-center gap-8 text-sm text-slate-500 dark:text-slate-400">
+        <div><p class="text-2xl font-display font-bold text-secondary dark:text-white">120+</p>Projects delivered</div>
+        <div><p class="text-2xl font-display font-bold text-secondary dark:text-white">40+</p>Clients served</div>
+        <div><p class="text-2xl font-display font-bold text-secondary dark:text-white">98%</p>On-time delivery</div>
+      </div>
+    </div>
+    <div class="relative" data-aos="fade-left" data-aos-delay="150">
+      <div class="glass rounded-2xl shadow-2xl p-4 rotate-1">
+        <div class="rounded-xl bg-white dark:bg-slate-900 overflow-hidden border border-slate-100 dark:border-slate-800">
+          <div class="h-9 bg-slate-50 dark:bg-slate-800 flex items-center gap-1.5 px-3">
+            <span class="h-2.5 w-2.5 rounded-full bg-red-400"></span><span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <p class="font-display font-semibold text-secondary dark:text-white">E-Commerce Platform</p>
+              <span class="text-xs px-2 py-1 rounded-full bg-teal-100 text-teal-700">Development</span>
+            </div>
+            <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden"><div class="h-full w-2/3 bg-gradient-to-r from-primary-600 to-accent"></div></div>
+            <p class="text-xs text-slate-400">65% complete · Deployment in 3 weeks</p>
+            <div class="grid grid-cols-3 gap-2 pt-2">
+              <div class="rounded-lg bg-slate-50 dark:bg-slate-800 p-2 text-center"><p class="text-lg font-bold text-secondary dark:text-white">8</p><p class="text-[10px] text-slate-400">Milestones</p></div>
+              <div class="rounded-lg bg-slate-50 dark:bg-slate-800 p-2 text-center"><p class="text-lg font-bold text-secondary dark:text-white">24</p><p class="text-[10px] text-slate-400">Tasks</p></div>
+              <div class="rounded-lg bg-slate-50 dark:bg-slate-800 p-2 text-center"><p class="text-lg font-bold text-secondary dark:text-white">3</p><p class="text-[10px] text-slate-400">Devs</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ABOUT ============================== -->
+<section id="about" class="max-w-7xl mx-auto px-5 lg:px-8 py-20 grid lg:grid-cols-2 gap-12 items-center">
+  <div data-aos="fade-right">
+    <h2 class="font-display font-bold text-3xl text-secondary dark:text-white">About TechDream Africa</h2>
+    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+      We're a software development consultancy building digital products for organizations that want to move fast without sacrificing quality. Our teams pair experienced engineers with structured project management — so every client can see exactly where their project stands, at any hour, from any device.
+    </p>
+    <div class="mt-6 grid sm:grid-cols-2 gap-4">
+      <div class="flex gap-3"><span class="text-primary-600 text-xl">✓</span><p class="text-sm text-slate-600 dark:text-slate-400">Dedicated project managers on every engagement</p></div>
+      <div class="flex gap-3"><span class="text-primary-600 text-xl">✓</span><p class="text-sm text-slate-600 dark:text-slate-400">Real-time visibility into progress and deliverables</p></div>
+      <div class="flex gap-3"><span class="text-primary-600 text-xl">✓</span><p class="text-sm text-slate-600 dark:text-slate-400">Secure file sharing and direct developer communication</p></div>
+      <div class="flex gap-3"><span class="text-primary-600 text-xl">✓</span><p class="text-sm text-slate-600 dark:text-slate-400">Transparent milestones from kickoff to deployment</p></div>
+    </div>
+  </div>
+  <div class="rounded-2xl overflow-hidden shadow-xl" data-aos="fade-left">
+    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80" alt="TechDream Africa team collaborating" class="w-full h-full object-cover">
+  </div>
+</section>
+
+<!-- ============================== SERVICES ============================== -->
+<section id="services" class="bg-slate-50 dark:bg-slate-900/40 py-20">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto" data-aos="fade-up">
+      <h2 class="font-display font-bold text-3xl text-secondary dark:text-white">What we build</h2>
+      <p class="mt-3 text-slate-600 dark:text-slate-400">End-to-end product development across the technologies that power modern businesses.</p>
+    </div>
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- service cards injected via loop-like repetition -->
+      <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 hover:shadow-lg hover:-translate-y-1 transition-all" data-aos="fade-up">
+        <div class="h-11 w-11 rounded-xl bg-primary-50 dark:bg-primary-800/30 flex items-center justify-center text-xl">🌐</div>
+        <h3 class="font-display font-semibold mt-4 text-secondary dark:text-white">Web Development</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Fast, scalable web platforms tailored to your workflow.</p>
+      </div>
+      <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 hover:shadow-lg hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="50">
+        <div class="h-11 w-11 rounded-xl bg-accent-50 dark:bg-blue-900/30 flex items-center justify-center text-xl">📱</div>
+        <h3 class="font-display font-semibold mt-4 text-secondary dark:text-white">Mobile Apps</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Native and cross-platform apps for iOS and Android.</p>
+      </div>
+      <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 hover:shadow-lg hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="100">
+        <div class="h-11 w-11 rounded-xl bg-primary-50 dark:bg-primary-800/30 flex items-center justify-center text-xl">🤖</div>
+        <h3 class="font-display font-semibold mt-4 text-secondary dark:text-white">AI Solutions</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Practical AI features that solve real business problems.</p>
+      </div>
+      <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 hover:shadow-lg hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="150">
+        <div class="h-11 w-11 rounded-xl bg-accent-50 dark:bg-blue-900/30 flex items-center justify-center text-xl">🏢</div>
+        <h3 class="font-display font-semibold mt-4 text-secondary dark:text-white">ERP Systems</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Unify operations, inventory, and finance in one system.</p>
+      </div>
+      <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 hover:shadow-lg hover:-translate-y-1 transition-all" data-aos="fade-up">
+        <div class="h-11 w-11 rounded-xl bg-primary-50 dark:bg-primary-800/30 flex items-center justify-center text-xl">🤝</div>
+        <h3 class="font-display font-semibold mt-4 text-secondary dark:text-white">CRM Systems</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Track leads, deals, and customer relationships with ease.</p>
+      </div>
+      <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 hover:shadow-lg hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="50">
+        <div class="h-11 w-11 rounded-xl bg-accent-50 dark:bg-blue-900/30 flex items-center justify-center text-xl">🛒</div>
+        <h3 class="font-display font-semibold mt-4 text-secondary dark:text-white">E-commerce</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Storefronts, payments, and inventory built to convert.</p>
+      </div>
+      <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 hover:shadow-lg hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="100">
+        <div class="h-11 w-11 rounded-xl bg-primary-50 dark:bg-primary-800/30 flex items-center justify-center text-xl">🎨</div>
+        <h3 class="font-display font-semibold mt-4 text-secondary dark:text-white">UI/UX Design</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Interfaces people enjoy using, grounded in research.</p>
+      </div>
+      <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 hover:shadow-lg hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="150">
+        <div class="h-11 w-11 rounded-xl bg-accent-50 dark:bg-blue-900/30 flex items-center justify-center text-xl">☁️</div>
+        <h3 class="font-display font-semibold mt-4 text-secondary dark:text-white">Cloud Solutions</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Reliable infrastructure that scales with your growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PORTFOLIO ============================== -->
+<section id="portfolio" class="max-w-7xl mx-auto px-5 lg:px-8 py-20">
+  <div class="text-center max-w-2xl mx-auto" data-aos="fade-up">
+    <h2 class="font-display font-bold text-3xl text-secondary dark:text-white">Recent work</h2>
+    <p class="mt-3 text-slate-600 dark:text-slate-400">A sample of platforms our team has designed and shipped.</p>
+  </div>
+  <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 group" data-aos="zoom-in">
+      <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" alt="Fintech dashboard project"></div>
+      <div class="p-5"><p class="text-xs text-primary-600 font-semibold">FINTECH</p><h3 class="font-display font-semibold mt-1 text-secondary dark:text-white">Regional Payments Dashboard</h3></div>
+    </div>
+    <div class="rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 group" data-aos="zoom-in" data-aos-delay="80">
+      <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" alt="Education platform project"></div>
+      <div class="p-5"><p class="text-xs text-primary-600 font-semibold">EDUCATION</p><h3 class="font-display font-semibold mt-1 text-secondary dark:text-white">AI Learning Platform</h3></div>
+    </div>
+    <div class="rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 group" data-aos="zoom-in" data-aos-delay="160">
+      <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=700&q=80" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" alt="Logistics ERP project"></div>
+      <div class="p-5"><p class="text-xs text-primary-600 font-semibold">LOGISTICS</p><h3 class="font-display font-semibold mt-1 text-secondary dark:text-white">Fleet & Inventory ERP</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TESTIMONIALS ============================== -->
+<section id="testimonials" class="bg-secondary py-20">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <h2 class="font-display font-bold text-3xl text-white text-center" data-aos="fade-up">What clients say</h2>
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-6 text-slate-200" data-aos="fade-up">
+        <p class="leading-relaxed">"The dashboard let us watch our project move from design to deployment without a single status-update meeting."</p>
+        <footer class="mt-4 text-sm text-slate-400">— Operations Lead, Retail Client</footer>
+      </blockquote>
+      <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-6 text-slate-200" data-aos="fade-up" data-aos-delay="80">
+        <p class="leading-relaxed">"Communication with the dev team was direct and fast. Files, messages, milestones — all in one place."</p>
+        <footer class="mt-4 text-sm text-slate-400">— Founder, EdTech Startup</footer>
+      </blockquote>
+      <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-6 text-slate-200" data-aos="fade-up" data-aos-delay="160">
+        <p class="leading-relaxed">"They shipped our ERP ahead of schedule and the handover documentation was the best we've received."</p>
+        <footer class="mt-4 text-sm text-slate-400">— IT Director, Logistics Firm</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FAQ ============================== -->
+<section id="faq" class="max-w-3xl mx-auto px-5 lg:px-8 py-20">
+  <h2 class="font-display font-bold text-3xl text-secondary dark:text-white text-center" data-aos="fade-up">Frequently asked questions</h2>
+  <div class="mt-10 space-y-3" id="faq-list">
+    <details class="group rounded-xl border border-slate-200 dark:border-slate-800 p-5 open:shadow-sm" open>
+      <summary class="flex justify-between items-center cursor-pointer font-medium text-secondary dark:text-white list-none">How do I start a project? <span class="text-primary-600 group-open:rotate-45 transition-transform">+</span></summary>
+      <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Click "Request a Project," complete the five-step form, and our project manager will reach out within one business day.</p>
+    </details>
+    <details class="group rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+      <summary class="flex justify-between items-center cursor-pointer font-medium text-secondary dark:text-white list-none">Can I track progress in real time? <span class="text-primary-600 group-open:rotate-45 transition-transform">+</span></summary>
+      <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Yes — your dashboard shows live milestone status, task boards, files, and messages, updated the moment our team makes a change.</p>
+    </details>
+    <details class="group rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+      <summary class="flex justify-between items-center cursor-pointer font-medium text-secondary dark:text-white list-none">Do you sign NDAs? <span class="text-primary-600 group-open:rotate-45 transition-transform">+</span></summary>
+      <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Yes, you can request one directly in the project request form and we'll send it over before kickoff.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section id="contact" class="bg-slate-50 dark:bg-slate-900/40 py-20">
+  <div class="max-w-3xl mx-auto px-5 lg:px-8">
+    <h2 class="font-display font-bold text-3xl text-secondary dark:text-white text-center" data-aos="fade-up">Get in touch</h2>
+    <p class="text-center text-slate-500 dark:text-slate-400 mt-2">Questions before you submit a project request? Send us a message.</p>
+    <form id="contact-form" class="mt-8 grid sm:grid-cols-2 gap-4" data-aos="fade-up">
+      <input required name="name" placeholder="Full name" class="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm focus:ring-2 focus:ring-primary-600 outline-none">
+      <input required type="email" name="email" placeholder="Email address" class="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm focus:ring-2 focus:ring-primary-600 outline-none">
+      <textarea required name="message" rows="4" placeholder="How can we help?" class="sm:col-span-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></textarea>
+      <button type="submit" class="sm:col-span-2 rounded-xl bg-primary-600 text-white font-semibold py-3 hover:bg-primary-700 transition-colors">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="bg-secondary text-slate-300">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <p class="font-display font-bold text-white text-lg">TechDream Africa</p>
+      <p class="text-sm mt-3 text-slate-400">Building digital solutions for ambitious businesses across Africa and beyond.</p>
+    </div>
+    <div>
+      <p class="font-semibold text-white text-sm mb-3">Services</p>
+      <ul class="space-y-2 text-sm text-slate-400">
+        <li><a href="#services" class="hover:text-white">Web Development</a></li>
+        <li><a href="#services" class="hover:text-white">Mobile Apps</a></li>
+        <li><a href="#services" class="hover:text-white">AI Solutions</a></li>
+        <li><a href="#services" class="hover:text-white">ERP / CRM</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-semibold text-white text-sm mb-3">Company</p>
+      <ul class="space-y-2 text-sm text-slate-400">
+        <li><a href="#about" class="hover:text-white">About</a></li>
+        <li><a href="#portfolio" class="hover:text-white">Portfolio</a></li>
+        <li><a href="#faq" class="hover:text-white">FAQ</a></li>
+        <li><a href="#contact" class="hover:text-white">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-semibold text-white text-sm mb-3">Get started</p>
+      <a href="new-project.html" class="inline-block rounded-lg bg-primary-600 text-white text-sm font-medium px-4 py-2 hover:bg-primary-700 transition-colors">Request a Project</a>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-5 text-center text-xs text-slate-500">© <span id="year"></span> TechDream Africa. All rights reserved.</div>
+</footer>
+
+<script type="module">
+  import { initTheme, toggleTheme, toast } from './js/ui.js';
+  initTheme();
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('contact-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    toast('Thanks — we\'ll be in touch shortly!', 'success');
+    e.target.reset();
+  });
+  if (window.AOS) AOS.init({ once: true, duration: 600 });
+</script>
+</body>
+</html>

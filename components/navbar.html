@@ -1,0 +1,28 @@
+<!--
+  Reference navbar markup (public/marketing pages).
+  This is a copy-paste snippet, not fetched dynamically — vanilla JS has no
+  native HTML partial-include, so each page in /*.html embeds this block
+  directly (see index.html <header>). Keep this file in sync when you edit
+  the navbar so it stays the single source of truth for the markup.
+-->
+<header class="sticky top-0 z-50 glass border-b border-slate-100/50 dark:border-slate-800/50">
+  <nav class="max-w-7xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2 font-display font-bold text-lg text-secondary dark:text-white">
+      <span class="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent flex items-center justify-center text-white text-sm">TD</span>
+      TechDream <span class="text-primary-600">Africa</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#about" class="hover:text-primary-600 transition-colors">About</a>
+      <a href="#services" class="hover:text-primary-600 transition-colors">Services</a>
+      <a href="#portfolio" class="hover:text-primary-600 transition-colors">Portfolio</a>
+      <a href="#testimonials" class="hover:text-primary-600 transition-colors">Testimonials</a>
+      <a href="#faq" class="hover:text-primary-600 transition-colors">FAQ</a>
+      <a href="#contact" class="hover:text-primary-600 transition-colors">Contact</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle" aria-label="Toggle dark mode" class="h-9 w-9 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">🌓</button>
+      <a href="login.html" class="hidden sm:inline-block text-sm font-medium px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Login</a>
+      <a href="new-project.html" class="text-sm font-medium px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 shadow-sm shadow-primary-600/30 transition-colors">Request a Project</a>
+    </div>
+  </nav>
+</header>

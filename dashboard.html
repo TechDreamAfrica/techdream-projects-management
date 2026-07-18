@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — TechDream Africa</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class', theme: { extend: {
+    colors: { primary: { DEFAULT:'#0F766E',50:'#EBF7F5',600:'#0F766E',700:'#0B5C56' }, secondary:'#1E293B', accent:'#2563EB' },
+    fontFamily: { display: ['Sora','sans-serif'], body: ['Inter','sans-serif'] },
+  }}};
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body class="font-body bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
+
+<div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-30 hidden lg:hidden"></div>
+
+<!-- ============================== SIDEBAR ============================== -->
+<aside id="sidebar" class="fixed lg:sticky top-0 z-40 h-screen w-64 bg-secondary text-slate-300 -translate-x-full lg:translate-x-0 transition-transform duration-200 flex flex-col">
+  <a href="index.html" class="flex items-center gap-2 font-display font-bold text-white px-5 h-16 border-b border-white/10 shrink-0">
+    <span class="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent flex items-center justify-center text-sm">TD</span>
+    TechDream <span class="text-primary-500">Africa</span>
+  </a>
+  <nav id="sidebar-nav" class="flex-1 overflow-y-auto px-3 py-4 space-y-1 text-sm"></nav>
+  <div class="p-3 border-t border-white/10">
+    <button id="logout-btn" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/5 text-sm transition-colors">🚪 Logout</button>
+  </div>
+</aside>
+
+<div class="lg:pl-64">
+  <!-- ============================== TOPBAR ============================== -->
+  <header class="sticky top-0 z-20 h-16 glass border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between px-4 lg:px-8">
+    <div class="flex items-center gap-3">
+      <button id="sidebar-toggle" class="lg:hidden h-9 w-9 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center">☰</button>
+      <div>
+        <p id="welcome-title" class="font-display font-semibold text-secondary dark:text-white">Welcome back</p>
+        <p id="welcome-sub" class="text-xs text-slate-400"></p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="theme-toggle" class="h-9 w-9 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">🌓</button>
+      <div class="relative">
+        <button id="bell-btn" class="relative h-9 w-9 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+          🔔<span id="bell-badge" class="hidden absolute -top-1 -right-1 h-4 min-w-[16px] px-1 rounded-full bg-accent text-white text-[10px] flex items-center justify-center">0</span>
+        </button>
+        <div id="bell-panel" class="hidden absolute right-0 mt-2 w-80 max-h-96 overflow-y-auto rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div class="px-4 py-3 border-b border-slate-100 dark:border-slate-800 font-medium text-sm">Notifications</div>
+          <div id="bell-list"></div>
+        </div>
+      </div>
+      <a href="profile.html" id="avatar-link" class="h-9 w-9 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-semibold">–</a>
+    </div>
+  </header>
+
+  <main class="p-4 lg:p-8 max-w-7xl mx-auto">
+    <!-- ---------------- CLIENT VIEW ---------------- -->
+    <section id="view-client" class="hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h1 class="font-display font-bold text-2xl text-secondary dark:text-white">Your projects</h1>
+        <div class="flex gap-2">
+          <a href="new-project.html" class="rounded-xl bg-primary-600 text-white text-sm font-medium px-4 py-2.5 hover:bg-primary-700 transition-colors">+ New Project</a>
+        </div>
+      </div>
+      <div id="client-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+          <h2 class="font-display font-semibold text-secondary dark:text-white mb-3">Your projects</h2>
+          <div id="client-projects" class="grid sm:grid-cols-2 gap-4"></div>
+        </div>
+        <div>
+          <h2 class="font-display font-semibold text-secondary dark:text-white mb-3">Recent activity</h2>
+          <div id="client-activity" class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------- STAFF VIEW (developer / PM / admin) ---------------- -->
+    <section id="view-staff" class="hidden space-y-6">
+      <h1 id="staff-title" class="font-display font-bold text-2xl text-secondary dark:text-white">Projects overview</h1>
+      <div id="staff-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+      <div id="admin-charts" class="hidden grid lg:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <h3 class="font-display font-semibold text-secondary dark:text-white mb-3">Project status distribution</h3>
+          <canvas id="chart-status" height="200"></canvas>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <h3 class="font-display font-semibold text-secondary dark:text-white mb-3">Projects created (last 6 months)</h3>
+          <canvas id="chart-growth" height="200"></canvas>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="text-xs uppercase text-slate-400 border-b border-slate-100 dark:border-slate-800">
+            <tr><th class="py-3 px-4">Project</th><th class="py-3 px-4">Status</th><th class="py-3 px-4">Progress</th><th class="py-3 px-4">Deadline</th></tr>
+          </thead>
+          <tbody id="staff-projects-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script type="module">
+  import { supabase, requireAuth, getCurrentProfile } from './js/supabase.js';
+  import { initTheme, toggleTheme, initSidebar, initials } from './js/ui.js';
+  import { logoutUser } from './js/auth.js';
+  import { initNotificationBell } from './js/notifications.js';
+  import { renderClientDashboard, renderStaffDashboard } from './js/dashboard.js';
+
+  initTheme();
+  initSidebar();
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+  document.getElementById('logout-btn').addEventListener('click', logoutUser);
+
+  const NAV = {
+    client: [
+      ['dashboard.html', '🏠', 'Overview'],
+      ['new-project.html', '➕', 'New Project'],
+      ['dashboard.html#files', '📁', 'Files'],
+      ['dashboard.html#messages', '💬', 'Messages'],
+      ['profile.html', '👤', 'Profile'],
+    ],
+    developer: [
+      ['dashboard.html', '🏠', 'Assigned Projects'],
+      ['dashboard.html#tasks', '✅', "Today's Tasks"],
+      ['dashboard.html#kanban', '🗂️', 'Kanban Board'],
+      ['profile.html', '👤', 'Profile'],
+    ],
+    project_manager: [
+      ['dashboard.html', '🏠', 'All Projects'],
+      ['dashboard.html#clients', '🧑‍💼', 'Clients'],
+      ['dashboard.html#calendar', '📅', 'Calendar'],
+      ['dashboard.html#reports', '📊', 'Reports'],
+      ['profile.html', '👤', 'Profile'],
+    ],
+    admin: [
+      ['dashboard.html', '🏠', 'Analytics'],
+      ['dashboard.html#users', '🧑‍🤝‍🧑', 'Users'],
+      ['dashboard.html#projects', '📁', 'All Projects'],
+      ['dashboard.html#logs', '🧾', 'System Logs'],
+      ['profile.html', '👤', 'Profile'],
+    ],
+  };
+
+  (async () => {
+    const session = await requireAuth();
+    if (!session) return;
+    const profile = await getCurrentProfile();
+    if (!profile) return;
+
+    document.getElementById('welcome-title').textContent = `Welcome back, ${profile.fullname?.split(' ')[0] || 'there'} 👋`;
+    document.getElementById('welcome-sub').textContent = profile.role.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
+    document.getElementById('avatar-link').textContent = initials(profile.fullname);
+    document.getElementById('sidebar-nav').innerHTML = (NAV[profile.role] || NAV.client).map(([href, icon, label]) => `
+      <a href="${href}" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">
+        <span>${icon}</span><span>${label}</span>
+      </a>`).join('');
+
+    initNotificationBell({
+      bellBtn: document.getElementById('bell-btn'),
+      panelEl: document.getElementById('bell-panel'),
+      badgeEl: document.getElementById('bell-badge'),
+      listEl: document.getElementById('bell-list'),
+    });
+
+    if (profile.role === 'client') {
+      document.getElementById('view-client').classList.remove('hidden');
+      await renderClientDashboard({
+        statsRow: document.getElementById('client-stats'),
+        activityList: document.getElementById('client-activity'),
+        projectsGrid: document.getElementById('client-projects'),
+      });
+    } else {
+      document.getElementById('view-staff').classList.remove('hidden');
+      document.getElementById('staff-title').textContent =
+        profile.role === 'developer' ? 'Your assigned projects' :
+        profile.role === 'project_manager' ? 'All client projects' : 'Platform overview';
+
+      const staffProfile = await renderStaffDashboard({
+        statsRow: document.getElementById('staff-stats'),
+        projectsTableBody: document.getElementById('staff-projects-body'),
+      });
+
+      if (profile.role === 'admin') {
+        document.getElementById('admin-charts').classList.remove('hidden');
+        const { data: projects } = await supabase.from('projects').select('status, created_at');
+        renderAdminCharts(projects || []);
+      }
+    }
+  })();
+
+  function renderAdminCharts(projects) {
+    const byStatus = {};
+    projects.forEach(p => byStatus[p.status] = (byStatus[p.status] || 0) + 1);
+    new Chart(document.getElementById('chart-status'), {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(byStatus),
+        datasets: [{ data: Object.values(byStatus), backgroundColor: ['#0F766E','#2563EB','#F59E0B','#10B981','#EF4444','#1E293B','#94A3B8','#7C3AED','#F97316','#0EA5E9'] }],
+      },
+      options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } },
+    });
+
+    const months = Array.from({ length: 6 }).map((_, i) => {
+      const d = new Date(); d.setMonth(d.getMonth() - (5 - i));
+      return d.toLocaleString('default', { month: 'short' });
+    });
+    const counts = months.map((m, i) => {
+      const d = new Date(); d.setMonth(d.getMonth() - (5 - i));
+      return projects.filter(p => {
+        const pd = new Date(p.created_at);
+        return pd.getMonth() === d.getMonth() && pd.getFullYear() === d.getFullYear();
+      }).length;
+    });
+    new Chart(document.getElementById('chart-growth'), {
+      type: 'bar',
+      data: { labels: months, datasets: [{ data: counts, backgroundColor: '#0F766E', borderRadius: 6 }] },
+      options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } },
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project — TechDream Africa</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class', theme: { extend: {
+    colors: { primary: { DEFAULT:'#0F766E',50:'#EBF7F5',600:'#0F766E',700:'#0B5C56' }, secondary:'#1E293B', accent:'#2563EB' },
+    fontFamily: { display: ['Sora','sans-serif'], body: ['Inter','sans-serif'] },
+  }}};
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body class="font-body bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
+
+<header class="h-16 glass border-b border-slate-200/60 dark:border-slate-800/60 flex items-center px-5 lg:px-8 sticky top-0 z-20 gap-4">
+  <a href="dashboard.html" class="text-sm text-slate-500 hover:text-primary-600 flex items-center gap-1">← Dashboard</a>
+  <div class="flex-1 min-w-0">
+    <h1 id="project-title" class="font-display font-semibold text-secondary dark:text-white truncate">Loading…</h1>
+  </div>
+  <span id="project-status-badge"></span>
+  <button id="theme-toggle" class="h-9 w-9 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0">🌓</button>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
+
+  <!-- Summary + Progress -->
+  <section class="grid lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <div class="flex items-center justify-between">
+        <h2 class="font-display font-semibold text-secondary dark:text-white">Project summary</h2>
+        <span id="progress-pct" class="text-sm font-semibold text-primary-600">0%</span>
+      </div>
+      <div class="h-2.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden mt-3">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-primary-600 to-accent rounded-full transition-all" style="width:0%"></div>
+      </div>
+      <p id="project-description" class="text-sm text-slate-500 dark:text-slate-400 mt-4"></p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-5 text-sm">
+        <div><p class="text-slate-400 text-xs">Budget</p><p id="meta-budget" class="font-medium">—</p></div>
+        <div><p class="text-slate-400 text-xs">Deadline</p><p id="meta-deadline" class="font-medium">—</p></div>
+        <div><p class="text-slate-400 text-xs">Industry</p><p id="meta-industry" class="font-medium">—</p></div>
+        <div><p class="text-slate-400 text-xs">Created</p><p id="meta-created" class="font-medium">—</p></div>
+      </div>
+    </div>
+
+    <!-- Pipeline timeline -->
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <h2 class="font-display font-semibold text-secondary dark:text-white mb-4">Progress tracker</h2>
+      <ol id="pipeline-list" class="pipeline-rail space-y-4"></ol>
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <section>
+    <div class="flex gap-1 border-b border-slate-200 dark:border-slate-800 overflow-x-auto" id="tabs">
+      <button data-tab="kanban" class="tab-btn px-4 py-2.5 text-sm font-medium border-b-2 border-primary-600 text-primary-600">Kanban Board</button>
+      <button data-tab="milestones" class="tab-btn px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-primary-600">Milestones</button>
+      <button data-tab="files" class="tab-btn px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-primary-600">Files</button>
+      <button data-tab="messages" class="tab-btn px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-primary-600">Messages</button>
+      <button data-tab="comments" class="tab-btn px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-primary-600">Comments</button>
+    </div>
+
+    <!-- Kanban -->
+    <div class="tab-panel mt-6" data-tab="kanban">
+      <div class="flex justify-end mb-3">
+        <button id="add-task-btn" class="text-sm font-medium px-3 py-1.5 rounded-lg bg-primary-600 text-white hover:bg-primary-700">+ Add Task</button>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" id="kanban-board">
+        <div class="rounded-2xl bg-slate-100 dark:bg-slate-900 p-3">
+          <p class="text-xs font-semibold uppercase text-slate-400 px-1 mb-2">To Do</p>
+          <div class="kanban-column space-y-2" data-status="todo"></div>
+        </div>
+        <div class="rounded-2xl bg-slate-100 dark:bg-slate-900 p-3">
+          <p class="text-xs font-semibold uppercase text-slate-400 px-1 mb-2">In Progress</p>
+          <div class="kanban-column space-y-2" data-status="in_progress"></div>
+        </div>
+        <div class="rounded-2xl bg-slate-100 dark:bg-slate-900 p-3">
+          <p class="text-xs font-semibold uppercase text-slate-400 px-1 mb-2">Review</p>
+          <div class="kanban-column space-y-2" data-status="review"></div>
+        </div>
+        <div class="rounded-2xl bg-slate-100 dark:bg-slate-900 p-3">
+          <p class="text-xs font-semibold uppercase text-slate-400 px-1 mb-2">Done</p>
+          <div class="kanban-column space-y-2" data-status="done"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Milestones -->
+    <div class="tab-panel hidden mt-6" data-tab="milestones">
+      <div id="milestones-list" class="space-y-3"></div>
+    </div>
+
+    <!-- Files -->
+    <div class="tab-panel hidden mt-6" data-tab="files">
+      <div id="files-dropzone" class="rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 p-8 text-center cursor-pointer hover:border-primary-500 transition-colors mb-4">
+        <p class="text-2xl mb-1">📤</p>
+        <p class="text-sm font-medium">Drag & drop files, or click to upload</p>
+        <input id="files-input" type="file" multiple class="hidden">
+      </div>
+      <div id="files-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+    </div>
+
+    <!-- Messages -->
+    <div class="tab-panel hidden mt-6" data-tab="messages">
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col h-[480px]">
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+        <p id="typing-indicator" class="hidden px-4 text-xs text-slate-400 italic">Someone is typing…</p>
+        <form id="chat-form" class="flex gap-2 p-3 border-t border-slate-100 dark:border-slate-800">
+          <input id="chat-input" placeholder="Type a message…" autocomplete="off"
+                 class="flex-1 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none">
+          <button class="px-5 py-2.5 rounded-xl bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="tab-panel hidden mt-6" data-tab="comments">
+      <div id="comments-list" class="space-y-3 mb-4"></div>
+      <form id="comment-form" class="flex gap-2">
+        <input id="comment-input" placeholder="Add a comment…" class="flex-1 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none">
+        <button class="px-5 py-2.5 rounded-xl bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700">Post</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- Add Task Modal -->
+<div id="task-modal" data-modal class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+  <div data-modal-panel class="w-full max-w-md rounded-2xl bg-white dark:bg-slate-900 p-6 scale-95 opacity-0 transition-all duration-150">
+    <h3 class="font-display font-semibold text-lg text-secondary dark:text-white mb-4">New task</h3>
+    <form id="task-form" class="space-y-3">
+      <input required name="title" placeholder="Task title" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none">
+      <textarea name="description" placeholder="Description (optional)" rows="2" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></textarea>
+      <select name="priority" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none">
+        <option value="low">Low priority</option>
+        <option value="medium" selected>Medium priority</option>
+        <option value="high">High priority</option>
+        <option value="urgent">Urgent</option>
+      </select>
+      <div class="flex justify-end gap-2 pt-2">
+        <button type="button" data-close-modal class="px-4 py-2 rounded-lg text-sm font-medium border border-slate-300 dark:border-slate-700">Cancel</button>
+        <button type="submit" class="px-4 py-2 rounded-lg text-sm font-medium bg-primary-600 text-white hover:bg-primary-700">Add Task</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="module">
+  import { supabase, requireAuth, getCurrentProfile } from './js/supabase.js';
+  import { initTheme, toggleTheme, toast, openModal, closeModal, timeAgo, skeletonRows, initials } from './js/ui.js';
+  import { getProject, PIPELINE, statusLabel, progressFromStatus, getMilestones, getTasks, updateTaskStatus, createTask, getComments, addComment } from './js/projects.js';
+  import { statusBadge } from './js/dashboard.js';
+  import { initDropzone, uploadProjectFiles, getProjectFiles, getFileDownloadUrl, formatBytes } from './js/uploads.js';
+  import { getMessages, sendMessage, subscribeToChat, broadcastTyping, unsubscribeChat, markMessagesRead } from './js/chat.js';
+
+  initTheme();
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+  const projectId = new URLSearchParams(location.search).get('id');
+  let me, project, chatChannel;
+
+  if (!projectId) {
+    toast('No project selected.', 'error');
+  }
+
+  (async () => {
+    const session = await requireAuth();
+    if (!session) return;
+    me = await getCurrentProfile();
+
+    try {
+      project = await getProject(projectId);
+    } catch (err) {
+      toast('Project not found or access denied.', 'error');
+      return;
+    }
+
+    document.title = `${project.title} — TechDream Africa`;
+    document.getElementById('project-title').textContent = project.title;
+    document.getElementById('project-status-badge').innerHTML = statusBadge(project.status);
+    document.getElementById('project-description').textContent = project.description || 'No description provided.';
+    document.getElementById('meta-budget').textContent = project.budget ? `$${Number(project.budget).toLocaleString()}` : '—';
+    document.getElementById('meta-deadline').textContent = project.deadline ? new Date(project.deadline).toLocaleDateString() : '—';
+    document.getElementById('meta-industry').textContent = project.industry || '—';
+    document.getElementById('meta-created').textContent = new Date(project.created_at).toLocaleDateString();
+
+    const pct = project.progress ?? progressFromStatus(project.status);
+    document.getElementById('progress-pct').textContent = `${pct}%`;
+    document.getElementById('progress-bar').style.width = `${pct}%`;
+
+    renderPipeline(project.status);
+    initTabs();
+    loadKanban();
+    loadMilestones();
+    loadFiles();
+    loadComments();
+    initChat();
+  })();
+
+  function renderPipeline(currentStatus) {
+    const idx = PIPELINE.indexOf(currentStatus);
+    document.getElementById('pipeline-list').innerHTML = PIPELINE.map((stage, i) => `
+      <li class="flex gap-3 relative pl-9">
+        <span class="absolute left-0 top-0.5 h-8 w-8 rounded-full flex items-center justify-center text-xs font-semibold ${i <= idx ? 'bg-primary-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}">${i < idx ? '✓' : i + 1}</span>
+        <div>
+          <p class="text-sm font-medium ${i <= idx ? 'text-secondary dark:text-white' : 'text-slate-400'}">${statusLabel(stage)}</p>
+          ${i === idx ? '<p class="text-xs text-primary-600">In progress</p>' : ''}
+        </div>
+      </li>`).join('');
+  }
+
+  function initTabs() {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('border-primary-600', 'text-primary-600'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.add('border-transparent', 'text-slate-500'));
+      btn.classList.add('border-primary-600', 'text-primary-600');
+      btn.classList.remove('border-transparent', 'text-slate-500');
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('hidden', p.dataset.tab !== btn.dataset.tab));
+    }));
+  }
+
+  // ---------------------------------------------------------------- Kanban --
+  async function loadKanban() {
+    const columns = document.querySelectorAll('.kanban-column');
+    columns.forEach(c => c.innerHTML = skeletonRows(2, 'h-14'));
+    const tasks = await getTasks(projectId);
+    columns.forEach(col => {
+      const status = col.dataset.status;
+      const items = tasks.filter(t => t.status === status);
+      col.innerHTML = items.map(taskCard).join('') || '<p class="text-xs text-slate-400 text-center py-4">No tasks</p>';
+      new Sortable(col, {
+        group: 'kanban', animation: 150, ghostClass: 'sortable-ghost', chosenClass: 'sortable-chosen',
+        onAdd: async (evt) => {
+          const taskId = evt.item.dataset.taskId;
+          await updateTaskStatus(taskId, col.dataset.status);
+          toast('Task updated', 'success', 1500);
+        },
+      });
+    });
+  }
+
+  function taskCard(t) {
+    const priorityColor = { low: 'bg-slate-100 text-slate-600', medium: 'bg-blue-100 text-blue-700', high: 'bg-amber-100 text-amber-700', urgent: 'bg-red-100 text-red-700' };
+    return `
+      <div class="kanban-card rounded-xl bg-white dark:bg-slate-800 p-3 shadow-sm border border-slate-100 dark:border-slate-700" data-task-id="${t.id}">
+        <p class="text-sm font-medium text-secondary dark:text-white">${t.title}</p>
+        ${t.description ? `<p class="text-xs text-slate-400 mt-1 line-clamp-2">${t.description}</p>` : ''}
+        <span class="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full ${priorityColor[t.priority] || priorityColor.medium}">${t.priority}</span>
+      </div>`;
+  }
+
+  document.getElementById('add-task-btn').addEventListener('click', () => openModal('task-modal'));
+  document.getElementById('task-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    await createTask({ project_id: projectId, title: fd.get('title'), description: fd.get('description'), priority: fd.get('priority'), status: 'todo' });
+    closeModal('task-modal');
+    e.target.reset();
+    toast('Task added', 'success');
+    loadKanban();
+  });
+
+  // ------------------------------------------------------------- Milestones -
+  async function loadMilestones() {
+    const list = document.getElementById('milestones-list');
+    list.innerHTML = skeletonRows(3);
+    const milestones = await getMilestones(projectId);
+    list.innerHTML = milestones.length ? milestones.map(m => `
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <div class="flex items-center justify-between">
+          <p class="font-medium text-secondary dark:text-white">${m.title}</p>
+          <span class="text-xs px-2 py-1 rounded-full ${m.status === 'completed' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-600'}">${m.status.replace('_',' ')}</span>
+        </div>
+        <div class="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden mt-3">
+          <div class="h-full bg-primary-600 rounded-full" style="width:${m.completion}%"></div>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">${m.due_date ? 'Due ' + new Date(m.due_date).toLocaleDateString() : 'No due date'}</p>
+      </div>`).join('') : '<p class="text-sm text-slate-400 text-center py-8">No milestones yet.</p>';
+  }
+
+  // ------------------------------------------------------------------ Files -
+  async function loadFiles() {
+    const list = document.getElementById('files-list');
+    list.innerHTML = skeletonRows(3);
+    const files = await getProjectFiles(projectId);
+    list.innerHTML = files.length ? files.map(f => `
+      <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 flex items-center justify-between gap-2">
+        <div class="min-w-0"><p class="text-sm font-medium truncate">${f.filename}</p><p class="text-xs text-slate-400">${formatBytes(f.size_bytes)} · ${timeAgo(f.uploaded_at)}</p></div>
+        <button data-path="${f.storage_path}" class="download-btn text-xs font-medium text-primary-600 hover:underline shrink-0">Download</button>
+      </div>`).join('') : '<p class="text-sm text-slate-400 text-center py-8 col-span-full">No files uploaded yet.</p>';
+
+    list.querySelectorAll('.download-btn').forEach(btn => btn.addEventListener('click', async () => {
+      const url = await getFileDownloadUrl(btn.dataset.path);
+      window.open(url, '_blank');
+    }));
+  }
+
+  initDropzone({
+    dropzoneEl: document.getElementById('files-dropzone'),
+    inputEl: document.getElementById('files-input'),
+    previewListEl: document.createElement('div'), // preview not shown; upload immediately
+    onChange: async (files) => {
+      if (!files.length) return;
+      await uploadProjectFiles(projectId, files, 'documents');
+      toast('Files uploaded', 'success');
+      loadFiles();
+    },
+  });
+
+  // --------------------------------------------------------------- Comments -
+  async function loadComments() {
+    const list = document.getElementById('comments-list');
+    list.innerHTML = skeletonRows(2);
+    const comments = await getComments(projectId);
+    list.innerHTML = comments.length ? comments.map(c => `
+      <div class="flex gap-3">
+        <span class="h-8 w-8 shrink-0 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 flex items-center justify-center text-xs font-semibold">${initials(c.users?.fullname || '?')}</span>
+        <div class="rounded-xl bg-slate-50 dark:bg-slate-900 px-3 py-2 flex-1">
+          <p class="text-xs font-medium text-secondary dark:text-white">${c.users?.fullname || 'Team member'} <span class="text-slate-400 font-normal">· ${timeAgo(c.created_at)}</span></p>
+          <p class="text-sm mt-0.5">${c.comment}</p>
+        </div>
+      </div>`).join('') : '<p class="text-sm text-slate-400 text-center py-6">No comments yet.</p>';
+  }
+
+  document.getElementById('comment-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = document.getElementById('comment-input');
+    if (!input.value.trim()) return;
+    await addComment(projectId, input.value.trim());
+    input.value = '';
+    loadComments();
+  });
+
+  // ------------------------------------------------------------------- Chat -
+  async function initChat() {
+    const messages = await getMessages(projectId);
+    renderMessages(messages);
+    await markMessagesRead(projectId, me.id);
+
+    chatChannel = subscribeToChat(projectId, {
+      onMessage: (msg) => appendMessage(msg),
+      onTyping: (payload) => {
+        if (payload.userName === me.fullname) return;
+        const ind = document.getElementById('typing-indicator');
+        ind.textContent = `${payload.userName} is typing…`;
+        ind.classList.remove('hidden');
+        clearTimeout(window.__typingTimeout);
+        window.__typingTimeout = setTimeout(() => ind.classList.add('hidden'), 2000);
+      },
+    });
+
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    let typingThrottle;
+    chatInput.addEventListener('input', () => {
+      if (typingThrottle) return;
+      broadcastTyping(chatChannel, me.fullname);
+      typingThrottle = setTimeout(() => (typingThrottle = null), 1500);
+    });
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = '';
+      const receiver = me.id === project.client_id ? (project.assigned_manager || project.assigned_developer) : project.client_id;
+      await sendMessage(projectId, receiver, text);
+    });
+  }
+
+  function renderMessages(messages) {
+    const box = document.getElementById('chat-messages');
+    box.innerHTML = messages.length ? messages.map(bubble).join('') : '<p class="text-sm text-slate-400 text-center py-10">No messages yet — say hello!</p>';
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function appendMessage(msg) {
+    const box = document.getElementById('chat-messages');
+    if (box.children.length === 1 && box.children[0].tagName === 'P') box.innerHTML = '';
+    box.insertAdjacentHTML('beforeend', bubble(msg));
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function bubble(msg) {
+    const mine = msg.sender === me?.id;
+    return `
+      <div class="flex ${mine ? 'justify-end' : 'justify-start'}">
+        <div class="max-w-[75%] rounded-2xl px-4 py-2 text-sm ${mine ? 'bg-primary-600 text-white rounded-br-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-bl-sm'}">
+          <p>${msg.message}</p>
+          <p class="text-[10px] mt-1 opacity-70">${timeAgo(msg.created_at)}</p>
+        </div>
+      </div>`;
+  }
+
+  window.addEventListener('beforeunload', () => unsubscribeChat(chatChannel));
+</script>
+</body>
+</html>

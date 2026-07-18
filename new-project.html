@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request a Project — TechDream Africa</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class', theme: { extend: {
+    colors: { primary: { DEFAULT:'#0F766E',50:'#EBF7F5',600:'#0F766E',700:'#0B5C56' }, secondary:'#1E293B', accent:'#2563EB' },
+    fontFamily: { display: ['Sora','sans-serif'], body: ['Inter','sans-serif'] },
+  }}};
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="font-body bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
+
+<header class="h-16 glass border-b border-slate-200/60 dark:border-slate-800/60 flex items-center px-5 lg:px-8 sticky top-0 z-20">
+  <a href="index.html" class="flex items-center gap-2 font-display font-bold text-secondary dark:text-white">
+    <span class="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent flex items-center justify-center text-white text-sm">TD</span>
+    TechDream <span class="text-primary-600">Africa</span>
+  </a>
+  <button id="theme-toggle" class="ml-auto h-9 w-9 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center">🌓</button>
+</header>
+
+<main class="max-w-3xl mx-auto px-5 py-10">
+  <h1 class="font-display font-bold text-3xl text-secondary dark:text-white">Request a Project</h1>
+  <p class="text-slate-500 dark:text-slate-400 mt-1">Tell us about what you're building — it takes about five minutes.</p>
+
+  <!-- Stepper -->
+  <ol class="flex items-center justify-between mt-8 mb-10" id="stepper">
+    <!-- populated by JS -->
+  </ol>
+
+  <form id="wizard-form" class="glass rounded-2xl shadow-sm p-6 lg:p-8">
+
+    <!-- STEP 1: Client Information -->
+    <div class="wizard-step space-y-4" data-step="1">
+      <h2 class="font-display font-semibold text-lg text-secondary dark:text-white">Client information</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div><label class="text-sm font-medium">Full name</label>
+          <input required name="fullName" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+        <div><label class="text-sm font-medium">Company</label>
+          <input name="company" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+        <div><label class="text-sm font-medium">Email</label>
+          <input required type="email" name="email" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+        <div><label class="text-sm font-medium">Phone</label>
+          <input required name="phone" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+        <div class="sm:col-span-2"><label class="text-sm font-medium">Country</label>
+          <input required name="country" placeholder="e.g. Ghana" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Project Details -->
+    <div class="wizard-step hidden space-y-4" data-step="2">
+      <h2 class="font-display font-semibold text-lg text-secondary dark:text-white">Project details</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div><label class="text-sm font-medium">Project name</label>
+          <input required name="projectName" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+        <div><label class="text-sm font-medium">Industry</label>
+          <input name="industry" placeholder="e.g. Retail, Education" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+      </div>
+      <div><label class="text-sm font-medium">Project description</label>
+        <textarea required name="description" rows="3" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></textarea></div>
+      <div><label class="text-sm font-medium">Business goals</label>
+        <textarea name="businessGoals" rows="2" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></textarea></div>
+      <div><label class="text-sm font-medium">Target audience</label>
+        <input name="targetAudience" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div><label class="text-sm font-medium">Estimated budget (USD)</label>
+          <input type="number" min="0" name="budget" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+        <div><label class="text-sm font-medium">Deadline</label>
+          <input type="date" name="deadline" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+        <div><label class="text-sm font-medium">Preferred technology</label>
+          <input name="preferredTechnology" placeholder="Optional" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Required Features -->
+    <div class="wizard-step hidden space-y-4" data-step="3">
+      <h2 class="font-display font-semibold text-lg text-secondary dark:text-white">Required features</h2>
+      <div class="grid sm:grid-cols-3 gap-2" id="features-grid">
+        <!-- populated by JS -->
+      </div>
+      <div><label class="text-sm font-medium">Custom features</label>
+        <textarea name="customFeatures" rows="2" placeholder="Anything not listed above?" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></textarea></div>
+    </div>
+
+    <!-- STEP 4: Upload Files -->
+    <div class="wizard-step hidden space-y-4" data-step="4">
+      <h2 class="font-display font-semibold text-lg text-secondary dark:text-white">Upload project files</h2>
+      <p class="text-sm text-slate-500 dark:text-slate-400">PDF, DOCX, XLSX, ZIP, PNG, JPG, MP4, PPTX — up to 100MB each.</p>
+      <div id="dropzone" class="rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 p-10 text-center cursor-pointer transition-colors hover:border-primary-500">
+        <p class="text-3xl mb-2">📤</p>
+        <p class="text-sm font-medium">Drag & drop files here, or click to browse</p>
+        <input id="file-input" type="file" multiple class="hidden" accept=".pdf,.docx,.xlsx,.zip,.png,.jpg,.jpeg,.mp4,.pptx">
+      </div>
+      <div id="file-preview-list" class="space-y-2"></div>
+    </div>
+
+    <!-- STEP 5: Additional Notes -->
+    <div class="wizard-step hidden space-y-4" data-step="5">
+      <h2 class="font-display font-semibold text-lg text-secondary dark:text-white">Additional notes</h2>
+      <textarea name="additionalNotes" rows="4" placeholder="Anything else we should know?" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></textarea>
+
+      <div>
+        <label class="text-sm font-medium">Preferred communication</label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+          <label class="flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 px-3 py-2 text-sm cursor-pointer has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-800/20">
+            <input type="radio" name="communicationPreference" value="email" checked class="text-primary-600"> Email</label>
+          <label class="flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 px-3 py-2 text-sm cursor-pointer has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-800/20">
+            <input type="radio" name="communicationPreference" value="whatsapp" class="text-primary-600"> WhatsApp</label>
+          <label class="flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 px-3 py-2 text-sm cursor-pointer has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-800/20">
+            <input type="radio" name="communicationPreference" value="phone" class="text-primary-600"> Phone</label>
+          <label class="flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 px-3 py-2 text-sm cursor-pointer has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-800/20">
+            <input type="radio" name="communicationPreference" value="zoom" class="text-primary-600"> Zoom</label>
+        </div>
+      </div>
+
+      <div><label class="text-sm font-medium">Meeting availability</label>
+        <input name="meetingAvailability" placeholder="e.g. Weekday afternoons (GMT)" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary-600 outline-none"></div>
+
+      <label class="flex items-center gap-2 text-sm">
+        <input type="checkbox" name="ndaRequired" class="rounded border-slate-300 text-primary-600 focus:ring-primary-600"> I require a signed NDA before we begin
+      </label>
+    </div>
+
+    <!-- Nav buttons -->
+    <div class="flex items-center justify-between mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+      <button type="button" id="prev-btn" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors invisible">Back</button>
+      <button type="button" id="next-btn" class="px-6 py-2.5 rounded-xl bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors">Continue</button>
+      <button type="submit" id="submit-btn" class="hidden px-6 py-2.5 rounded-xl bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors">Submit Project</button>
+    </div>
+  </form>
+</main>
+
+<script type="module">
+  import { initTheme, toggleTheme, toast } from './js/ui.js';
+  import { initDropzone, formatBytes } from './js/uploads.js';
+  import { submitProjectRequest } from './js/projects.js';
+  import { supabase } from './js/supabase.js';
+
+  initTheme();
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+  const FEATURES = ['User Authentication','Admin Dashboard','Reporting','Payment Integration','Chat','Notifications','AI','API Integration','Inventory','Booking','CRM','ERP','Analytics','Multi-language','File Storage'];
+  document.getElementById('features-grid').innerHTML = FEATURES.map(f => `
+    <label class="flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 px-3 py-2 text-sm cursor-pointer has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-800/20">
+      <input type="checkbox" name="features" value="${f}" class="rounded text-primary-600 focus:ring-primary-600"> ${f}
+    </label>`).join('');
+
+  const STEPS = ['Client Info', 'Project Details', 'Features', 'Files', 'Notes'];
+  let current = 1;
+  const stepper = document.getElementById('stepper');
+  function renderStepper() {
+    stepper.innerHTML = STEPS.map((label, i) => {
+      const n = i + 1;
+      const state = n < current ? 'bg-primary-600 text-white' : n === current ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-primary-900' : 'bg-slate-200 dark:bg-slate-800 text-slate-400';
+      return `
+        <li class="flex-1 flex flex-col items-center text-center relative">
+          ${i > 0 ? `<div class="absolute top-4 -left-1/2 w-full h-0.5 ${n <= current ? 'bg-primary-600' : 'bg-slate-200 dark:bg-slate-800'} -z-10"></div>` : ''}
+          <span class="h-8 w-8 rounded-full flex items-center justify-center text-xs font-semibold ${state}">${n < current ? '✓' : n}</span>
+          <span class="text-[11px] mt-1.5 text-slate-500 dark:text-slate-400 hidden sm:block">${label}</span>
+        </li>`;
+    }).join('');
+  }
+  renderStepper();
+
+  function showStep(n) {
+    document.querySelectorAll('.wizard-step').forEach(el => el.classList.toggle('hidden', Number(el.dataset.step) !== n));
+    document.getElementById('prev-btn').classList.toggle('invisible', n === 1);
+    document.getElementById('next-btn').classList.toggle('hidden', n === STEPS.length);
+    document.getElementById('submit-btn').classList.toggle('hidden', n !== STEPS.length);
+    current = n;
+    renderStepper();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('next-btn').addEventListener('click', () => {
+    const stepEl = document.querySelector(`.wizard-step[data-step="${current}"]`);
+    const inputs = stepEl.querySelectorAll('input[required], textarea[required]');
+    for (const inp of inputs) { if (!inp.reportValidity()) return; }
+    if (current < STEPS.length) showStep(current + 1);
+  });
+  document.getElementById('prev-btn').addEventListener('click', () => { if (current > 1) showStep(current - 1); });
+
+  const dz = initDropzone({
+    dropzoneEl: document.getElementById('dropzone'),
+    inputEl: document.getElementById('file-input'),
+    previewListEl: document.getElementById('file-preview-list'),
+  });
+
+  const form = document.getElementById('wizard-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      toast('Please sign in or create an account to submit your project.', 'warning');
+      sessionStorage.setItem('tda-pending-wizard', JSON.stringify(Object.fromEntries(new FormData(form))));
+      setTimeout(() => (location.href = 'register.html'), 1200);
+      return;
+    }
+
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try {
+      const fd = new FormData(form);
+      const wizardData = {
+        fullName: fd.get('fullName'), company: fd.get('company'), phone: fd.get('phone'), country: fd.get('country'),
+        projectName: fd.get('projectName'), industry: fd.get('industry'), description: fd.get('description'),
+        businessGoals: fd.get('businessGoals'), targetAudience: fd.get('targetAudience'), budget: fd.get('budget'),
+        deadline: fd.get('deadline'), preferredTechnology: fd.get('preferredTechnology'),
+        features: fd.getAll('features'), customFeatures: fd.get('customFeatures'),
+        additionalNotes: fd.get('additionalNotes'), communicationPreference: fd.get('communicationPreference'),
+        meetingAvailability: fd.get('meetingAvailability'), ndaRequired: fd.get('ndaRequired') === 'on',
+      };
+      const project = await submitProjectRequest(wizardData, dz.getFiles());
+      toast('Project submitted! Redirecting to your dashboard…', 'success');
+      setTimeout(() => (location.href = `project.html?id=${project.id}`), 1000);
+    } catch (err) {
+      toast(err.message || 'Something went wrong submitting your project.', 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Project';
+    }
+  });
+</script>
+</body>
+</html>
